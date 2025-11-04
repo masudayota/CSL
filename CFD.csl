@@ -15,27 +15,42 @@
     <updated>2025-11-04T00:00:00+09:00</updated>
     <category citation-format="numeric"/>
     <category field="engineering"/>
-    <summary>Numbered Japanese reference style (e.g., この(1)ように引用)</summary>
+    <summary>Numbered Japanese reference style with initials and no month</summary>
     <language>ja</language>
   </info>
 
-  <!-- 文中引用スタイル -->
+  <!-- 文中引用 -->
   <citation collapse="citation-number">
     <layout prefix="(" suffix=")" delimiter=",">
       <text variable="citation-number"/>
     </layout>
   </citation>
 
-  <!-- 参考文献リスト -->
+  <!-- 参考文献 -->
   <bibliography et-al-min="3" et-al-use-first="2" entry-spacing="0" line-spacing="1">
     <layout>
       <text variable="citation-number" prefix="(" suffix=") "/>
       <group delimiter=", ">
-        <text variable="author"/>
+        <!-- 著者名：姓，名のイニシャル -->
+        <names variable="author" delimiter=", ">
+          <name form="short" initialize-with="." name-as-sort-order="all" sort-separator=", "/>
+        </names>
+
+        <!-- 論文タイトル -->
         <text variable="title" quotes="true"/>
-        <text variable="container-title" font-style="normal"/>
-        <text variable="volume"/>
-        <text variable="issued" prefix=" (" suffix=")"/>
+
+        <!-- 雑誌名（存在する場合のみ） -->
+        <text variable="container-title" prefix=", "/>
+
+        <!-- 巻数 -->
+        <text variable="volume" prefix=", "/>
+
+        <!-- 年のみ表示 -->
+        <date variable="issued" prefix=" (" suffix=")">
+          <date-part name="year"/>
+        </date>
+
+        <!-- ページ -->
         <text variable="page" prefix=", pp. "/>
       </group>
       <text value="."/>
