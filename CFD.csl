@@ -1,85 +1,159 @@
 This XML file does not appear to have any style information associated with it. The document tree is shown below.
-<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-US">
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-GB">
 <info>
-<title>Database - yota masuda</title>
-<id>http://csl.mendeley.com/styles/713513741/database-2</id>
-<link href="http://www.zotero.org/styles/database" rel="self"/>
-<link href="http://www.zotero.org/styles/american-chemical-society" rel="template"/>
-<link href="http://www.oxfordjournals.org/our_journals/databa/for_authors/general.html" rel="documentation"/>
-<author>
-<name>Janos Binder</name>
-<email>janos@binder.hu</email>
+  <title>Nature (brackets, no superscript) - yota masuda</title>
+  <id>http://csl.mendeley.com/styles/713513741/nature-brackets-2</id>
+  <link href="http://www.zotero.org/styles/nature-brackets" rel="self"/>
+  <link href="https://www.nature.com/nature/for-authors/formatting-guide" rel="documentation"/>
+  <author>
+  <name>Michael Berkowitz</name>
+  <email>mberkowi@gmu.edu</email>
 </author>
 <contributor>
-<name>yota masuda</name>
+  <name>Michael Berkowitz</name>
+  </contributor>
+  <contributor>
+  <name>yota masuda</name>
 <uri/>
 </contributor>
 <category citation-format="numeric"/>
-<category field="biology"/>
-<eissn>1758-0463</eissn>
-<summary>Database Oxford Journals style.</summary>
-<updated>2025-11-04T09:37:16+00:00</updated>
+<category field="science"/>
+<category field="generic-base"/>
+<updated>2025-11-04T09:44:10+00:00</updated>
 <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
 </info>
-<macro name="editor">
-<names variable="editor">
-<name delimiter-precedes-last="always" initialize-with=". " name-as-sort-order="all"/>
-<label form="short" prefix=" (" suffix=")"/>
-</names>
+<macro name="title">
+<choose>
+<if type="bill book graphic legal_case legislation motion_picture report song" match="any">
+<text variable="title" font-style="italic" text-case="title"/>
+</if>
+<else>
+<text variable="title" prefix=""" suffix="","/>
+</else>
+</choose>
 </macro>
 <macro name="author">
 <names variable="author">
-<name and="text" delimiter-precedes-last="never" initialize-with="." name-as-sort-order="all"/>
-<label form="short" prefix=" (" suffix=")"/>
-<substitute>
-<names variable="editor"/>
-<text variable="title"/>
-</substitute>
+<name sort-separator=", " delimiter=", " and="symbol" initialize-with=". " delimiter-precedes-last="never" name-as-sort-order="all"/>
+<label form="short" prefix=", "/>
+<et-al font-style="italic"/>
 </names>
 </macro>
-<macro name="publisher">
-<group delimiter=", ">
-<text variable="publisher"/>
+<macro name="access">
+<choose>
+<if variable="volume" type="article dataset software" match="any"/>
+<else-if variable="DOI">
+<text variable="DOI" prefix="doi:"/>
+</else-if>
+</choose>
+</macro>
+<macro name="access-data">
+<choose>
+<if type="dataset software" match="any">
+<text variable="DOI" prefix="https://doi.org/"/>
+</if>
+</choose>
+</macro>
+<macro name="issuance">
+<choose>
+<if type="bill book graphic legal_case legislation motion_picture song thesis chapter paper-conference" match="any">
+<group delimiter="; " suffix=".">
+<group delimiter=", " prefix="(" suffix=")">
+<text variable="publisher" form="long"/>
 <text variable="publisher-place"/>
-</group>
-</macro>
-<macro name="volume">
-<group delimiter=" ">
-<text term="volume" form="short" text-case="capitalize-first"/>
-<text variable="volume"/>
-</group>
-</macro>
-<macro name="series">
-<text variable="collection-title"/>
-</macro>
-<macro name="pages">
-<label variable="page" form="short" suffix=" "/>
-<text variable="page"/>
-</macro>
-<macro name="book-container">
-<group delimiter=" ">
-<text term="in" text-case="capitalize-first"/>
-<text macro="editor"/>
-</group>
-</macro>
-<macro name="issued"/>
-<macro name="full-issued">
-<date variable="issued" delimiter=" ">
-<date-part name="month" form="long" suffix=" "/>
-<date-part name="day" suffix=", "/>
+<date variable="issued">
 <date-part name="year"/>
 </date>
-</macro>
-<macro name="edition">
-<choose>
-<if is-numeric="edition">
-<group delimiter=" ">
-<number variable="edition" form="ordinal"/>
-<text term="edition" form="short"/>
+</group>
 </group>
 </if>
+<else-if type="article">
+<group delimiter=" ">
+<choose>
+<if variable="genre" match="any">
+<text variable="genre" text-case="capitalize-first"/>
+</if>
 <else>
-<text variable="edition" suffix="."/>
+<text term="preprint" text-case="capitalize-first"/>
+</else>
+</choose>
+<text term="at"/>
+<choose>
+<if variable="DOI" match="any">
+<text variable="DOI" prefix="https://doi.org/"/>
+</if>
+<else>
+<text variable="URL"/>
+</else>
+</choose>
+<date date-parts="year" form="text" variable="issued" prefix="(" suffix=")"/>
+</group>
+</else-if>
+<else-if type="dataset software" match="any">
+<group delimiter=" ">
+<text variable="publisher"/>
+<text macro="access-data"/>
+<date date-parts="year" form="text" variable="issued" prefix="(" suffix=")"/>
+</group>
+</else-if>
+<else-if type="report webpage post post-weblog" match="any">
+<group delimiter=" ">
+<text variable="URL"/>
+<date date-parts="year" form="text" variable="issued" prefix="(" suffix=")"/>
+</group>
+</else-if>
+<else-if type="article-journal" match="any">
+<choose>
+<if match="none" variable="volume page">
+<choose>
+<if match="any" variable="DOI">
+<text variable="DOI" prefix="https://doi.org/"/>
+</if>
+<else>
+<text variable="URL"/>
+</else>
+</choose>
+</if>
+</choose>
+<group delimiter=" "/>
+</else-if>
+<else>
+<date variable="issued" prefix="(" suffix=")">
+<date-part name="year"/>
+</date>
+</else>
+</choose>
+</macro>
+<macro name="container-title">
+<choose>
+<if type="article-journal">
+<text variable="container-title" font-style="italic" form="short"/>
+</if>
+<else>
+<text variable="container-title" font-style="italic"/>
+</else>
+</choose>
+</macro>
+<macro name="editor">
+<choose>
+<if type="chapter paper-conference" match="any">
+<names variable="editor" prefix="(" suffix=")">
+<label form="short" suffix=" "/>
+<name and="symbol" delimiter-precedes-last="never" initialize-with=". " name-as-sort-order="all"/>
+</names>
+</if>
+</choose>
+</macro>
+<macro name="volume">
+<choose>
+<if type="article-journal" match="any">
+<text variable="volume" font-weight="bold" suffix=","/>
+</if>
+<else>
+<group delimiter=" ">
+<label variable="volume" form="short"/>
+<text variable="volume"/>
+</group>
 </else>
 </choose>
 </macro>
@@ -87,114 +161,29 @@ This XML file does not appear to have any style information associated with it. 
 <sort>
 <key variable="citation-number"/>
 </sort>
-<layout vertical-align="baseline" delimiter="," prefix="(" suffix=")">
+<layout delimiter="," prefix="(" suffix=")">
 <text variable="citation-number"/>
 </layout>
 </citation>
-<bibliography et-al-min="4" et-al-use-first="3" second-field-align="flush" entry-spacing="0">
+<bibliography et-al-min="6" et-al-use-first="1" second-field-align="flush" entry-spacing="0" line-spacing="2">
 <layout suffix=".">
 <text variable="citation-number" form="short" prefix="(" suffix=")"/>
-<text macro="author" suffix=" "/>
-<text macro="issued"/>
-<text variable="title" prefix=""" suffix="","/>
-<choose>
-<if type="article-magazine">
 <group delimiter=" ">
-<text variable="container-title" font-style="italic" suffix="."/>
-<text macro="edition"/>
-<text macro="publisher"/>
-<text macro="full-issued" suffix=","/>
-<text macro="pages"/>
-</group>
-</if>
-<else-if type="thesis">
-<group delimiter=", ">
-<group delimiter=". ">
-<text variable="genre"/>
-</group>
-<text macro="publisher"/>
-<text macro="volume"/>
-<text macro="pages"/>
-</group>
-</else-if>
-<else-if type="bill book graphic legal_case legislation motion_picture report song" match="any">
-<group delimiter="; ">
-<text variable="title" font-style="italic"/>
-<text macro="editor" prefix=" "/>
-<text macro="series"/>
-<text macro="edition"/>
+<text macro="author" suffix="."/>
+<text macro="title" suffix="."/>
 <choose>
-<if type="report">
-<group delimiter=" ">
-<text variable="genre"/>
-<text variable="number"/>
-</group>
+<if type="chapter paper-conference" match="any">
+<text term="in"/>
 </if>
 </choose>
-<group delimiter=", ">
-<text macro="publisher"/>
-<text macro="issued"/>
-</group>
-<group delimiter=", ">
+<text macro="container-title"/>
+<text macro="editor"/>
 <text macro="volume"/>
-<text macro="pages"/>
-</group>
-</group>
-</else-if>
-<else-if type="patent">
-<group delimiter=", ">
-<group delimiter=". ">
-<text variable="title"/>
-<text variable="number"/>
-</group>
-<date variable="issued" form="text"/>
-</group>
-</else-if>
-<else-if type="chapter paper-conference" match="any">
-<group delimiter=", ">
-<text macro="book-container"/>
-<text variable="container-title" font-style="italic"/>
-<text macro="series"/>
-<text macro="publisher"/>
-<group delimiter=", ">
-<text macro="volume"/>
-<text macro="pages"/>
-</group>
-</group>
-</else-if>
-<else-if type="webpage post post-weblog" match="any">
-<group delimiter=" ">
-<text variable="title"/>
-<text variable="URL"/>
-<date variable="accessed" prefix="(accessed " suffix=")" delimiter=" ">
-<date-part name="month" form="short" strip-periods="true"/>
-<date-part name="day" suffix=", "/>
-<date-part name="year"/>
-</date>
-</group>
-</else-if>
-<else-if type="article-journal">
-<group delimiter=", ">
-<text variable="container-title" font-style="italic" form="short"/>
-<text variable="volume" font-weight="bold"/>
-<date date-parts="year" form="text" variable="issued" prefix=" (" suffix=") "/>
+<date date-parts="year" form="text" variable="issued" prefix="(" suffix="),"/>
 <text variable="page"/>
+<text macro="issuance"/>
+<text macro="access"/>
 </group>
-</else-if>
-<else>
-<group delimiter=" ">
-<group delimiter=". ">
-<text variable="title"/>
-<text variable="container-title" font-style="italic" form="short"/>
-</group>
-<group delimiter=", ">
-<text macro="issued" font-weight="bold"/>
-<text variable="volume" font-style="italic"/>
-<text variable="page"/>
-</group>
-</group>
-</else>
-</choose>
 </layout>
 </bibliography>
 </style>
