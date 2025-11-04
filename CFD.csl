@@ -1,59 +1,200 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<style xmlns="http://purl.org/net/xbiblio/csl"
-  version="1.0"
-  name="Japanese Numbered Style"
-  class="in-text"
-  demote-non-dropping-particle="sort-only">
-
-  <info>
-    <title>Japanese Numbered Style</title>
-    <id>http://www.zotero.org/styles/japanese-numbered-style</id>
-    <link href="http://www.zotero.org/styles/japanese-numbered-style" rel="self"/>
-    <author>
-      <name>Custom CSL for Japanese technical papers</name>
-    </author>
-    <updated>2025-11-04T00:00:00+09:00</updated>
-    <category citation-format="numeric"/>
-    <category field="engineering"/>
-    <summary>Numbered Japanese reference style with initials and no month</summary>
-    <language>ja</language>
-  </info>
-
-  <!-- 文中引用 -->
-  <citation collapse="citation-number">
-    <layout prefix="(" suffix=")" delimiter=",">
-      <text variable="citation-number"/>
-    </layout>
-  </citation>
-
-  <!-- 参考文献 -->
-  <bibliography et-al-min="3" et-al-use-first="2" entry-spacing="0" line-spacing="1">
-    <layout>
-      <text variable="citation-number" prefix="(" suffix=") "/>
-      <group delimiter=", ">
-        <!-- 著者名：姓，名のイニシャル -->
-        <names variable="author" delimiter=", ">
-          <name form="short" initialize-with="." name-as-sort-order="all" sort-separator=", "/>
-        </names>
-
-        <!-- 論文タイトル -->
-        <text variable="title" quotes="true"/>
-
-        <!-- 雑誌名（存在する場合のみ） -->
-        <text variable="container-title" prefix=", "/>
-
-        <!-- 巻数 -->
-        <text variable="volume" prefix=", "/>
-
-        <!-- 年のみ表示 -->
-        <date variable="issued" prefix=" (" suffix=")">
-          <date-part name="year"/>
-        </date>
-
-        <!-- ページ -->
-        <text variable="page" prefix=", pp. "/>
-      </group>
-      <text value="."/>
-    </layout>
-  </bibliography>
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-US">
+<info>
+<title>Database - yota masuda</title>
+<id>http://csl.mendeley.com/styles/713513741/database-2</id>
+<link href="http://www.zotero.org/styles/database" rel="self"/>
+<link href="http://www.zotero.org/styles/american-chemical-society" rel="template"/>
+<link href="http://www.oxfordjournals.org/our_journals/databa/for_authors/general.html" rel="documentation"/>
+<author>
+<name>Janos Binder</name>
+<email>janos@binder.hu</email>
+</author>
+<contributor>
+<name>yota masuda</name>
+<uri/>
+</contributor>
+<category citation-format="numeric"/>
+<category field="biology"/>
+<eissn>1758-0463</eissn>
+<summary>Database Oxford Journals style.</summary>
+<updated>2025-11-04T09:37:16+00:00</updated>
+<rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
+</info>
+<macro name="editor">
+<names variable="editor">
+<name delimiter-precedes-last="always" initialize-with=". " name-as-sort-order="all"/>
+<label form="short" prefix=" (" suffix=")"/>
+</names>
+</macro>
+<macro name="author">
+<names variable="author">
+<name and="text" delimiter-precedes-last="never" initialize-with="." name-as-sort-order="all"/>
+<label form="short" prefix=" (" suffix=")"/>
+<substitute>
+<names variable="editor"/>
+<text variable="title"/>
+</substitute>
+</names>
+</macro>
+<macro name="publisher">
+<group delimiter=", ">
+<text variable="publisher"/>
+<text variable="publisher-place"/>
+</group>
+</macro>
+<macro name="volume">
+<group delimiter=" ">
+<text term="volume" form="short" text-case="capitalize-first"/>
+<text variable="volume"/>
+</group>
+</macro>
+<macro name="series">
+<text variable="collection-title"/>
+</macro>
+<macro name="pages">
+<label variable="page" form="short" suffix=" "/>
+<text variable="page"/>
+</macro>
+<macro name="book-container">
+<group delimiter=" ">
+<text term="in" text-case="capitalize-first"/>
+<text macro="editor"/>
+</group>
+</macro>
+<macro name="issued"/>
+<macro name="full-issued">
+<date variable="issued" delimiter=" ">
+<date-part name="month" form="long" suffix=" "/>
+<date-part name="day" suffix=", "/>
+<date-part name="year"/>
+</date>
+</macro>
+<macro name="edition">
+<choose>
+<if is-numeric="edition">
+<group delimiter=" ">
+<number variable="edition" form="ordinal"/>
+<text term="edition" form="short"/>
+</group>
+</if>
+<else>
+<text variable="edition" suffix="."/>
+</else>
+</choose>
+</macro>
+<citation collapse="citation-number">
+<sort>
+<key variable="citation-number"/>
+</sort>
+<layout vertical-align="baseline" delimiter="," prefix="(" suffix=")">
+<text variable="citation-number"/>
+</layout>
+</citation>
+<bibliography et-al-min="4" et-al-use-first="3" second-field-align="flush" entry-spacing="0">
+<layout suffix=".">
+<text variable="citation-number" form="short" prefix="(" suffix=")"/>
+<text macro="author" suffix=" "/>
+<text macro="issued"/>
+<text variable="title" prefix=""" suffix="","/>
+<choose>
+<if type="article-magazine">
+<group delimiter=" ">
+<text variable="container-title" font-style="italic" suffix="."/>
+<text macro="edition"/>
+<text macro="publisher"/>
+<text macro="full-issued" suffix=","/>
+<text macro="pages"/>
+</group>
+</if>
+<else-if type="thesis">
+<group delimiter=", ">
+<group delimiter=". ">
+<text variable="genre"/>
+</group>
+<text macro="publisher"/>
+<text macro="volume"/>
+<text macro="pages"/>
+</group>
+</else-if>
+<else-if type="bill book graphic legal_case legislation motion_picture report song" match="any">
+<group delimiter="; ">
+<text variable="title" font-style="italic"/>
+<text macro="editor" prefix=" "/>
+<text macro="series"/>
+<text macro="edition"/>
+<choose>
+<if type="report">
+<group delimiter=" ">
+<text variable="genre"/>
+<text variable="number"/>
+</group>
+</if>
+</choose>
+<group delimiter=", ">
+<text macro="publisher"/>
+<text macro="issued"/>
+</group>
+<group delimiter=", ">
+<text macro="volume"/>
+<text macro="pages"/>
+</group>
+</group>
+</else-if>
+<else-if type="patent">
+<group delimiter=", ">
+<group delimiter=". ">
+<text variable="title"/>
+<text variable="number"/>
+</group>
+<date variable="issued" form="text"/>
+</group>
+</else-if>
+<else-if type="chapter paper-conference" match="any">
+<group delimiter=", ">
+<text macro="book-container"/>
+<text variable="container-title" font-style="italic"/>
+<text macro="series"/>
+<text macro="publisher"/>
+<group delimiter=", ">
+<text macro="volume"/>
+<text macro="pages"/>
+</group>
+</group>
+</else-if>
+<else-if type="webpage post post-weblog" match="any">
+<group delimiter=" ">
+<text variable="title"/>
+<text variable="URL"/>
+<date variable="accessed" prefix="(accessed " suffix=")" delimiter=" ">
+<date-part name="month" form="short" strip-periods="true"/>
+<date-part name="day" suffix=", "/>
+<date-part name="year"/>
+</date>
+</group>
+</else-if>
+<else-if type="article-journal">
+<group delimiter=", ">
+<text variable="container-title" font-style="italic" form="short"/>
+<text variable="volume" font-weight="bold"/>
+<date date-parts="year" form="text" variable="issued" prefix=" (" suffix=") "/>
+<text variable="page"/>
+</group>
+</else-if>
+<else>
+<group delimiter=" ">
+<group delimiter=". ">
+<text variable="title"/>
+<text variable="container-title" font-style="italic" form="short"/>
+</group>
+<group delimiter=", ">
+<text macro="issued" font-weight="bold"/>
+<text variable="volume" font-style="italic"/>
+<text variable="page"/>
+</group>
+</group>
+</else>
+</choose>
+</layout>
+</bibliography>
 </style>
